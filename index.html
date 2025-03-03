@@ -70,6 +70,8 @@
     section {
       padding: 20px 0;
       border-bottom: 1px solid #ddd;
+      position: relative;
+      transition: border 0.3s ease;
     }
     section:last-child {
       border-bottom: none;
@@ -80,6 +82,12 @@
       border-bottom: 2px solid #0077cc;
       display: inline-block;
       padding-bottom: 5px;
+    }
+    /* Highlight class for whole section */
+    .highlight-section {
+      border: 3px solid #ff9800 !important;
+      border-radius: 5px;
+      padding: 20px;
     }
     h3 {
       margin-top: 15px;
@@ -268,5 +276,29 @@
   <footer>
     <p>&copy; 2025 Guo Gangquan. All Rights Reserved.</p>
   </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navLinks = document.querySelectorAll("nav a");
+      navLinks.forEach(link => {
+        link.addEventListener("click", function() {
+          // Remove highlight from all sections
+          document.querySelectorAll("section").forEach(section => section.classList.remove("highlight-section"));
+          // Get the target section from the hash in the link
+          const hash = this.getAttribute("href");
+          if (hash) {
+            const targetSection = document.querySelector(hash);
+            if (targetSection) {
+              // Add the highlight to the whole section
+              targetSection.classList.add("highlight-section");
+              // Remove the highlight after 2 seconds
+              setTimeout(() => {
+                targetSection.classList.remove("highlight-section");
+              }, 2000);
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
